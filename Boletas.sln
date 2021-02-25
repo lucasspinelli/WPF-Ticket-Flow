@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boletas", "Boletas.csproj", "{CC99E91A-9354-4372-8081-6D369AD026B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testes Boletas", "..\Testes Boletas\Testes Boletas.csproj", "{A378B0DA-F556-4CDA-82E9-D332567E4450}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC99E91A-9354-4372-8081-6D369AD026B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC99E91A-9354-4372-8081-6D369AD026B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC99E91A-9354-4372-8081-6D369AD026B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC99E91A-9354-4372-8081-6D369AD026B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A378B0DA-F556-4CDA-82E9-D332567E4450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A378B0DA-F556-4CDA-82E9-D332567E4450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A378B0DA-F556-4CDA-82E9-D332567E4450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A378B0DA-F556-4CDA-82E9-D332567E4450}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4B88AD8-2838-4C97-9671-A360B9BAD19D}
+	EndGlobalSection
+EndGlobal

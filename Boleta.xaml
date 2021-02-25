@@ -1,0 +1,113 @@
+﻿<Window x:Class="Boletas.Boleta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Boletas"
+        mc:Ignorable="d"
+        Title="Boleta" Height="624.515" Width="798.753">
+    <Grid Margin="0,0,2,2">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToolBarPanel HorizontalAlignment="Left" Height="592" VerticalAlignment="Top" Width="29" Background="#FF2BC57F"/>
+
+        <ScrollViewer
+                      HorizontalScrollBarVisibility="Visible"
+                      VerticalScrollBarVisibility="Hidden" Margin="44,52,28,299" RenderTransformOrigin="0.5,0.5">
+
+            <DataGrid AutoGenerateColumns="False"
+                IsReadOnly="True"
+                Height="186" 
+                Width="701" HorizontalAlignment="Left"
+                VerticalAlignment="Top" 
+                SelectionChanged="DataGrid_SelectionChanged"
+                ItemsSource="{Binding PreBoletasAprovadas}"
+                SelectedItem="{Binding SelectedPreBoleta}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Grupo de Carteira" Binding="{Binding grupoCarteira}" />
+                    <DataGridTextColumn Header="Carteira" Binding="{Binding carteira}" />
+                    <DataGridTextColumn Header="Ação" Binding="{Binding acao}"/>
+                    <DataGridTextColumn Header="Clase da Operação" Binding="{Binding classeOp}"/>
+                    <DataGridTextColumn Header="PU" Binding="{Binding pu}"/>
+                    <DataGridTextColumn Header="Quantidade" Binding="{Binding quantidade}"/>
+                    <DataGridTextColumn Header="Valor" Binding="{Binding valor}"/>
+                    <DataGridTextColumn Header="Conta Associada" Binding="{Binding contaAssociada}"/>
+                    <DataGridTextColumn Header="Corretora" Binding="{Binding corretora}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding status}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <StackPanel HorizontalAlignment="Left" Height="41" VerticalAlignment="Top" Width="311" Margin="44,325,0,0" Orientation="Horizontal">
+            <Button Margin="2,2,2,10" 
+                    Padding="2" 
+                    BorderBrush="Black" 
+                    Content="Adicionar Nova" 
+                    Width="105" 
+                    FontFamily="Verdana"
+                    CommandParameter="{Binding}"
+                    Command="{Binding Adicionar}">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD3D4D3" Offset="0"/>
+                        <GradientStop Color="LimeGreen" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Margin="2,2,2,10"
+                    Padding="2" 
+                    BorderBrush="Black" 
+                    Content="Editar" 
+                    Width="62" 
+                    FontFamily="Verdana"
+                    CommandParameter="{Binding}"
+                    Command="{Binding Editar}">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD1D0CF" Offset="0"/>
+                        <GradientStop Color="Orange" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Margin="2,2,2,10"
+                    Padding="2"
+                    BorderBrush="Black"
+                    Content="Deletar"
+                    Width="69"
+                    FontFamily="Verdana"
+                    CommandParameter="{Binding}"
+                    Command="{Binding Deletar}">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFBDBCBC" Offset="0"/>
+                        <GradientStop Color="Tomato" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        <Label Content="Pré-Boletas Aprovadas" HorizontalAlignment="Left" Margin="44,0,0,545" VerticalAlignment="Bottom" Width="163" FontWeight="Bold" FontSize="14"/>
+        <DataGrid AutoGenerateColumns="False"
+            IsReadOnly="True"
+            Height="186" 
+            Width="682" HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            SelectionChanged="DataGrid_SelectionChanged"
+            ItemsSource="{Binding Boletas}"
+            SelectedItem="{Binding SelectedBoleta}" Margin="44,371,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Grupo de Carteira" Binding="{Binding grupoCarteira}" />
+                <DataGridTextColumn Header="Carteira" Binding="{Binding carteira}" />
+                <DataGridTextColumn Header="Ação" Binding="{Binding acao}"/>
+                <DataGridTextColumn Header="Clase da Operação" Binding="{Binding classeOp}"/>
+                <DataGridTextColumn Header="PU" Binding="{Binding pu}"/>
+                <DataGridTextColumn Header="Quantidade" Binding="{Binding quantidade}"/>
+                <DataGridTextColumn Header="Valor" Binding="{Binding valor}"/>
+                <DataGridTextColumn Header="Conta Associada" Binding="{Binding contaAssociada}"/>
+                <DataGridTextColumn Header="Corretora" Binding="{Binding corretora}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Boletas" HorizontalAlignment="Left" Margin="44,0,0,272" VerticalAlignment="Bottom" Width="163" FontWeight="Bold" FontSize="14"/>
+
+
+    </Grid>
+</Window>

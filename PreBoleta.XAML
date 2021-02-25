@@ -1,0 +1,61 @@
+﻿<Window x:Class="Boletas.PreBoleta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Boletas"
+        mc:Ignorable="d"
+        Title="PreBoleta" Height="380" Width="360" WindowStyle="ToolWindow">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="0">
+            <TextBlock Text="Grupo de Carteiras"/>
+            <ComboBox Name="GrupoCarteiras" Text="{Binding grupoCarteira}"/>
+            <TextBlock Text="Carteira"/>
+            <TextBox Text="{Binding carteira}"/>
+            <TextBlock Text="Ação"/>
+            <ComboBox Name="Acoes" Text="{Binding acao}"/>
+            <TextBlock Text="Classe Operação"/>
+            <TextBox Text="{Binding classeOp}"/>
+            <TextBlock Text="PU"/>
+            <TextBox Text="{Binding pu}"/>
+            <TextBlock Text="Quantidade"/>
+            <TextBox Text="{Binding quantidade}"/>
+            <TextBlock Text="Conta Associada"/>
+            <TextBox Text="{Binding contaAssociada}"/>
+            <TextBlock Text="Corretora"/>
+            <TextBox Text="{Binding corretora}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Button Name="OKButton"
+                        Grid.Column="0"
+                        Content="Ok"
+                        Margin="3"
+                        IsDefault="True"
+                        Click="OKButton_Click" Grid.ColumnSpan="2">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFD3D4D3" Offset="0"/>
+                            <GradientStop Color="LimeGreen" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <Button Grid.Column="2"
+                        Content="Cancelar"
+                        Margin="3"
+                        IsCancel="True">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFBDBCBC" Offset="0"/>
+                            <GradientStop Color="Tomato" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
