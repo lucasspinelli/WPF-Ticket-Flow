@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace Boletas.Model
 {
@@ -11,6 +12,7 @@ namespace Boletas.Model
     {
         private string _login;
 
+        [Unique]
         public string login 
         { 
             get { return _login; }

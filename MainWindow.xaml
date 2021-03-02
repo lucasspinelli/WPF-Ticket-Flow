@@ -17,10 +17,10 @@
                 <GradientStop Color="#FF242524"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Usuário" HorizontalAlignment="Left" Margin="117,65,0,0" VerticalAlignment="Top" Height="37" Width="80" FontSize="18" FontWeight="Bold" Foreground="#FFFBF5F5"/>
-        <Label Content="Senha" HorizontalAlignment="Left" Margin="117,156,0,0" VerticalAlignment="Top" Height="37" Width="80" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.653,-1.108" Foreground="White"/>
-        <TextBox Name="TBusuario" HorizontalAlignment="Left" Height="33" Margin="29,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" TextChanged="TextBox_TextChanged" Text="{Binding usuario.login}"/>
-        <TextBox Name="TBsenha" HorizontalAlignment="Left" Margin="29,198,0,0" VerticalAlignment="Top" Width="256" Height="33" Text="{Binding usuario.senha}"/>
+        <Label Content="Usuário" HorizontalAlignment="Left" Margin="117,76,0,0" VerticalAlignment="Top" Height="37" Width="80" FontSize="18" FontWeight="Bold" Foreground="#FFFBF5F5"/>
+        <Label Content="Senha" HorizontalAlignment="Left" Margin="117,197,0,0" VerticalAlignment="Top" Height="37" Width="80" FontSize="18" FontWeight="Bold" RenderTransformOrigin="0.653,-1.108" Foreground="White"/>
+        <TextBox Name="TBusuario" HorizontalAlignment="Left" Height="33" Margin="29,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" TextChanged="TextBox_TextChanged" Text="{Binding usuario.login}"/>
+        <TextBox Name="TBsenha" HorizontalAlignment="Left" Margin="29,239,0,0" VerticalAlignment="Top" Width="256" Height="35" Text="{Binding usuario.senha}"/>
         <Button Click = "Logar" Content="Logar" HorizontalAlignment="Left" Margin="83,309,0,0" VerticalAlignment="Top" Width="147" Height="41" FontSize="16" FontFamily="Verdana" FontWeight="Bold">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -29,7 +29,14 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Click="Cadastrar" Content="Cadastrar" HorizontalAlignment="Left" Margin="95,369,0,0" VerticalAlignment="Top" Width="120" Height="25" IsCancel="True">
+        <Button Content="Cadastrar" 
+                HorizontalAlignment="Left"
+                Margin="95,369,0,0"
+                VerticalAlignment="Top" 
+                Width="120" Height="25" 
+                IsCancel="True"
+                CommandParameter="{Binding}"
+                Command="{Binding CommandCadastrar}">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFBDBCBC" Offset="0"/>
@@ -37,7 +44,6 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ComboBox Name = "Perfil" HorizontalAlignment="Left" Margin="95,262,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

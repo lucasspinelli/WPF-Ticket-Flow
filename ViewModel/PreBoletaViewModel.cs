@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Boletas.Model;
-using Boletas.ViewModel.Commands;
 
 namespace Boletas.ViewModel
 {
@@ -15,11 +14,11 @@ namespace Boletas.ViewModel
         public ObservableCollection<Model.PreBoleta> PreBoletasAprovadas { get; private set; }
         public ObservableCollection<Model.PreBoleta> PreBoletasReprovadas { get; private set; }
         public ObservableCollection<Model.PreBoleta> PreBoletasPendentes { get; private set; }
-        public AdicionarCommand Adicionar { get; private set; } = new AdicionarCommand();
-        public DeletarCommand Deletar { get; private set; } = new DeletarCommand();
-        public EditarCommand Editar { get; private set; } = new EditarCommand();
-        public AnalisarCommand Analisar { get; private set; } = new AnalisarCommand();
-
+        public RelayCommand CommandAdicionar { get; set; }
+        public RelayCommand CommandDeletar { get; set; }
+         public RelayCommand CommandEditar { get; set; }
+        public RelayCommand CommandAnalisar { get; set; }
+        
         private Model.PreBoleta _selectedPreBoleta;
         public Model.PreBoleta SelectedPreBoleta
         {
@@ -31,8 +30,6 @@ namespace Boletas.ViewModel
             set
             {
                 SetField(ref _selectedPreBoleta, value);
-                Deletar.RaiseCanExecuteChanged();
-                Editar.RaiseCanExecuteChanged();
             }
         }
 
@@ -47,18 +44,93 @@ namespace Boletas.ViewModel
             set
             {
                 SetField(ref _selectedPreBoletaPendente, value);
-                Analisar.RaiseCanExecuteChanged();
             }
         }
 
         public PreBoletaViewModel()
         {
-            DBConnection.createDB();
-            PreBoletas = new ObservableCollection<Model.PreBoleta>(DBConnection.getListPB());
-            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(DBConnection.getStatus(Status.APROVADA));
-            PreBoletasReprovadas = new ObservableCollection<Model.PreBoleta>(DBConnection.getStatus(Status.REPROVADA));
-            PreBoletasPendentes = new ObservableCollection<Model.PreBoleta>(DBConnection.getStatus(Status.PENDENTE));
+            ConnectionDB.createDB();
+            PreBoletas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getListPB());
+            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.APROVADA));
+            PreBoletasReprovadas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.REPROVADA));
+            PreBoletasPendentes = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.PENDENTE));
+            CommandAdicionar = new RelayCommand(AdicionarPB);
+            CommandDeletar = new RelayCommand(DeletarPB);
+            CommandEditar = new RelayCommand(EditarPB);
+            CommandAnalisar = new RelayCommand(AnalisarPB);
+        }
 
+        private void AdicionarPB()
+        {
+            var preBoleta = new Model.PreBoleta();
+
+
+            var pw = new PreBoleta();
+            pw.DataContext = preBoleta;
+            pw.ShowDialog();
+
+            if (pw.DialogResult.HasValue && pw.DialogResult.Value)
+            {
+                PreBoletas.Add(preBoleta);
+                PreBoletasPendentes.Add(preBoleta);
+                preBoleta.status = Status.PENDENTE;
+                ConnectionDB.add(preBoleta);
+                SelectedPreBoleta = preBoleta;
+            }
+        }
+
+        private void DeletarPB()
+        {
+            ConnectionDB.delete(SelectedPreBoleta);
+            PreBoletas.Remove(SelectedPreBoleta);
+            SelectedPreBoleta = PreBoletas.FirstOrDefault();
+        }
+
+        private void EditarPB()
+        {
+            var preBoletaClone = (Model.PreBoleta)SelectedPreBoleta.Clone();
+            var pbw = new PreBoleta();
+            pbw.DataContext = preBoletaClone;
+            pbw.ShowDialog();
+
+            if (pbw.DialogResult.HasValue && pbw.DialogResult.Value)
+            {
+                SelectedPreBoleta.grupoCarteira = preBoletaClone.grupoCarteira;
+                SelectedPreBoleta.carteira = preBoletaClone.carteira;
+                SelectedPreBoleta.acao = preBoletaClone.acao;
+                SelectedPreBoleta.classeOp = preBoletaClone.classeOp;
+                SelectedPreBoleta.pu = preBoletaClone.pu;
+                SelectedPreBoleta.quantidade = preBoletaClone.quantidade;
+                SelectedPreBoleta.contaAssociada = preBoletaClone.contaAssociada;
+                SelectedPreBoleta.corretora = preBoletaClone.corretora;
+                ConnectionDB.update(preBoletaClone);
+            }
+        }
+
+        private void AnalisarPB()
+        {
+            var preBoletaClone = (Model.PreBoleta)SelectedPreBoletasPendentes.Clone();
+            var apbw = new AnalisePB();
+            apbw.DataContext = preBoletaClone;
+            apbw.ShowDialog();
+
+            if (apbw.DialogResult.HasValue && apbw.DialogResult.Value)
+            {
+                SelectedPreBoletasPendentes.status = preBoletaClone.status;
+                ConnectionDB.update(preBoletaClone);
+                if (preBoletaClone.status == Status.APROVADA)
+                {
+                    PreBoletasAprovadas.Add(preBoletaClone);
+                    PreBoletasPendentes.Remove(SelectedPreBoletasPendentes);
+
+                }
+                else if (preBoletaClone.status == Status.REPROVADA)
+                {
+                    PreBoletasReprovadas.Add(preBoletaClone);
+                    PreBoletasPendentes.Remove(SelectedPreBoletasPendentes);
+                }
+
+            }
         }
     }
 }

@@ -68,7 +68,7 @@
                     Width="105" 
                     FontFamily="Verdana"
                     CommandParameter="{Binding}"
-                    Command="{Binding Adicionar}">
+                    Command="{Binding CommandAdicionar}">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFD3D4D3" Offset="0"/>
@@ -83,7 +83,7 @@
                     Width="62" 
                     FontFamily="Verdana"
                     CommandParameter="{Binding}"
-                    Command="{Binding Editar}">
+                    Command="{Binding CommandEditar}">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFD1D0CF" Offset="0"/>
@@ -98,7 +98,7 @@
                     Width="69"
                     FontFamily="Verdana"
                     CommandParameter="{Binding}"
-                    Command="{Binding Deletar}">
+                    Command="{Binding CommandDeletar}">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFBDBCBC" Offset="0"/>
@@ -144,7 +144,7 @@
                 Width="105" 
                 FontFamily="Verdana"
                 CommandParameter="{Binding}"
-                Command="{Binding Analisar}">
+                Command="{Binding CommandAnalisar}">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFD3D4D3" Offset="0"/>

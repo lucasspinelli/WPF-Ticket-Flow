@@ -35,9 +35,9 @@ namespace Boletas
 
         private void Logar(object sender, RoutedEventArgs e)
         {
-            /*if (DBUser.validateUser(TBusuario.Text, TBsenha.Text))
-            {*/
-                var perfil = Perfil.SelectedItem;
+           if (ConnectionDB.validateUser(TBusuario.Text, TBsenha.Text))
+            {
+                var perfil = ConnectionDB.findUserProfile(TBusuario.Text);
                 switch (perfil)
                 {
                     case Model.Perfil.SUDO:
@@ -58,16 +58,12 @@ namespace Boletas
                         break;
                 } 
                 
-           /*} else
+           } else
             {
                 MessageBox.Show("Deu certo n");
-            }*/
+            }
            
         }
-        private void Cadastrar(object sender, RoutedEventArgs e)
-        {
-            Cadastro cadast = new Cadastro();
-            cadast.ShowDialog();
-        }
+
     }
 }

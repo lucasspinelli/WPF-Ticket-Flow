@@ -104,14 +104,12 @@
     <Compile Include="Gestor.xaml.cs">
       <DependentUpon>Gestor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ConnectionDB.cs" />
     <Compile Include="SUDO.xaml.cs">
       <DependentUpon>SUDO.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Acoes.cs" />
     <Compile Include="Model\BaseCommands.cs" />
-    <Compile Include="Model\DBconecctionBole.cs" />
-    <Compile Include="Model\DBConnection.cs" />
-    <Compile Include="Model\DBUser.cs" />
     <Compile Include="Model\GrupoCarteiras.cs" />
     <Compile Include="Model\Perfil.cs" />
     <Compile Include="Model\Status.cs" />
@@ -120,15 +118,8 @@
       <DependentUpon>Supervisor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BoletaViewModel.cs" />
-    <Compile Include="ViewModel\CommandsBoleta\AdicionarBoleta.cs" />
-    <Compile Include="ViewModel\CommandsBoleta\DeletarBoleta.cs" />
-    <Compile Include="ViewModel\CommandsBoleta\EditarBoleta.cs" />
-    <Compile Include="ViewModel\Commands\AdicionarCommand.cs" />
-    <Compile Include="ViewModel\Commands\AnalisarCommand.cs" />
-    <Compile Include="ViewModel\Commands\Cadastrar.cs" />
-    <Compile Include="ViewModel\Commands\DeletarCommand.cs" />
-    <Compile Include="ViewModel\Commands\EditarCommand.cs" />
     <Compile Include="ViewModel\PreBoletaViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Page Include="AnalisePB.xaml">
       <SubType>Designer</SubType>
