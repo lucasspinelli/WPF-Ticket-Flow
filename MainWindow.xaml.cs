@@ -25,7 +25,7 @@ namespace Boletas
         {
             InitializeComponent();
             DataContext = new UserViewModel();
-            Perfil.ItemsSource = Enum.GetValues(typeof(Model.Perfil)).Cast<Model.Perfil>();
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,9 +35,10 @@ namespace Boletas
 
         private void Logar(object sender, RoutedEventArgs e)
         {
-           if (ConnectionDB.validateUser(TBusuario.Text, TBsenha.Text))
+            DBInterface connection = new ConnectionDB();
+           if (connection.validateUser(TBusuario.Text, TBsenha.Text))
             {
-                var perfil = ConnectionDB.findUserProfile(TBusuario.Text);
+                var perfil = connection.findUserProfile(TBusuario.Text);
                 switch (perfil)
                 {
                     case Model.Perfil.SUDO:

@@ -14,6 +14,7 @@ namespace Boletas.ViewModel
         public ObservableCollection<Model.PreBoleta> PreBoletasAprovadas { get; private set; }
         public ObservableCollection<Model.PreBoleta> PreBoletasReprovadas { get; private set; }
         public ObservableCollection<Model.PreBoleta> PreBoletasPendentes { get; private set; }
+        public DBInterface DBconnection { get; set; }
         public RelayCommand CommandAdicionar { get; set; }
         public RelayCommand CommandDeletar { get; set; }
          public RelayCommand CommandEditar { get; set; }
@@ -49,11 +50,12 @@ namespace Boletas.ViewModel
 
         public PreBoletaViewModel()
         {
-            ConnectionDB.createDB();
-            PreBoletas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getListPB());
-            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.APROVADA));
-            PreBoletasReprovadas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.REPROVADA));
-            PreBoletasPendentes = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.PENDENTE));
+            DBconnection = new ConnectionDB();
+            DBconnection.createDB();
+            PreBoletas = new ObservableCollection<Model.PreBoleta>(DBconnection.getListPB());
+            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(DBconnection.getStatusPB(Status.APROVADA));
+            PreBoletasReprovadas = new ObservableCollection<Model.PreBoleta>(DBconnection.getStatusPB(Status.REPROVADA));
+            PreBoletasPendentes = new ObservableCollection<Model.PreBoleta>(DBconnection.getStatusPB(Status.PENDENTE));
             CommandAdicionar = new RelayCommand(AdicionarPB);
             CommandDeletar = new RelayCommand(DeletarPB);
             CommandEditar = new RelayCommand(EditarPB);
@@ -74,14 +76,14 @@ namespace Boletas.ViewModel
                 PreBoletas.Add(preBoleta);
                 PreBoletasPendentes.Add(preBoleta);
                 preBoleta.status = Status.PENDENTE;
-                ConnectionDB.add(preBoleta);
+                DBconnection.add(preBoleta);
                 SelectedPreBoleta = preBoleta;
             }
         }
 
         private void DeletarPB()
         {
-            ConnectionDB.delete(SelectedPreBoleta);
+            DBconnection.delete(SelectedPreBoleta);
             PreBoletas.Remove(SelectedPreBoleta);
             SelectedPreBoleta = PreBoletas.FirstOrDefault();
         }
@@ -103,7 +105,7 @@ namespace Boletas.ViewModel
                 SelectedPreBoleta.quantidade = preBoletaClone.quantidade;
                 SelectedPreBoleta.contaAssociada = preBoletaClone.contaAssociada;
                 SelectedPreBoleta.corretora = preBoletaClone.corretora;
-                ConnectionDB.update(preBoletaClone);
+                DBconnection.update(preBoletaClone);
             }
         }
 
@@ -117,7 +119,7 @@ namespace Boletas.ViewModel
             if (apbw.DialogResult.HasValue && apbw.DialogResult.Value)
             {
                 SelectedPreBoletasPendentes.status = preBoletaClone.status;
-                ConnectionDB.update(preBoletaClone);
+                DBconnection.update(preBoletaClone);
                 if (preBoletaClone.status == Status.APROVADA)
                 {
                     PreBoletasAprovadas.Add(preBoletaClone);

@@ -8,7 +8,7 @@ using SQLite;
 
 namespace Boletas.Model
 {
-    public static class ConnectionDB
+    public class ConnectionDB : DBInterface
     {
         private static string DBname = "MITRA.DB";
         private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -16,14 +16,14 @@ namespace Boletas.Model
 
         private static SQLiteConnection connectionDB = new SQLiteConnection(DBpath);
 
-        public static void createDB()
+        void DBInterface.createDB()
         {
             connectionDB.CreateTable<PreBoleta>();
             connectionDB.CreateTable<Boleta>();
             connectionDB.CreateTable<User>();
         }
 
-        public static bool add(object obj)
+        bool DBInterface.add(object obj)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Boletas.Model
             }
         }
 
-        public static bool delete(object obj)
+        bool DBInterface.delete(object obj)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Boletas.Model
             }
         }
 
-        public static bool update(object obj)
+        bool DBInterface.update(object obj)
         {
             try
             {
@@ -67,37 +67,37 @@ namespace Boletas.Model
             }
         }
 
-        public static List<PreBoleta> getListPB()
+        List<PreBoleta> DBInterface.getListPB()
         {
             return connectionDB.Table<PreBoleta>().ToList();
         }
 
-        public static List<PreBoleta> getStatusPB(Status status)
+        List<PreBoleta> DBInterface.getStatusPB(Status status)
         {
             return connectionDB.Table<PreBoleta>().Where(pb => pb.status == status).ToList();
         }
 
-        public static List<Boleta> getListBol()
+        List<Boleta> DBInterface.getListBol()
         {
             return connectionDB.Table<Boleta>().ToList();
         }
 
-        public static List<User> getListUser()
+        List<User> DBInterface.getListUser()
         {
             return connectionDB.Table<User>().ToList();
         }
 
-        public static List<User> getPerfil(Perfil perfil)
+        List<User> DBInterface.getPerfil(Perfil perfil)
         {
             return connectionDB.Table<User>().Where(user => user.perfil == perfil).ToList();
         }
 
-        public static Perfil findUserProfile(string login)
+        Perfil DBInterface.findUserProfile(string login)
         {
             return connectionDB.Table<User>().Where(user => user.login == login).ToList().First().perfil;
         }
 
-        public static bool validateUser(string login, string senha)
+        bool DBInterface.validateUser(string login, string senha)
         {
             if (connectionDB.Table<User>().Where(u => u.login == login && u.senha == senha).ToList().Count != 0)
             {

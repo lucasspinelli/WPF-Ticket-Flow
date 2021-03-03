@@ -13,6 +13,8 @@ namespace Boletas.ViewModel
         public ObservableCollection<Model.Boleta> Boletas { get; private set; }
         public ObservableCollection<Model.PreBoleta> PreBoletasAprovadas { get; private set; }
         public RelayCommand CommandAdicionar { get; set; }
+
+        public DBInterface DBconnection { get; set; }
         public RelayCommand CommandDeletar { get; set; }
         public RelayCommand CommandEditar { get; set; }
 
@@ -31,9 +33,10 @@ namespace Boletas.ViewModel
         }
         public BoletaViewModel()
         {
-            ConnectionDB.createDB();
-            Boletas = new ObservableCollection<Model.Boleta>(ConnectionDB.getListBol());
-            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(ConnectionDB.getStatusPB(Status.APROVADA));
+            DBconnection = new ConnectionDB();
+            DBconnection.createDB();
+            Boletas = new ObservableCollection<Model.Boleta>(DBconnection.getListBol());
+            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(DBconnection.getStatusPB(Status.APROVADA));
             CommandAdicionar = new RelayCommand(AdicionarB);
             CommandDeletar = new RelayCommand(DeletarB);
             CommandEditar = new RelayCommand(EditarB);
@@ -50,14 +53,14 @@ namespace Boletas.ViewModel
             if (bw.DialogResult.HasValue && bw.DialogResult.Value)
             {
                 Boletas.Add(boleta);
-                ConnectionDB.add(boleta);
+                DBconnection.add(boleta);
                 SelectedBoleta = boleta;
             }
         }
 
         private void DeletarB()
         {
-            ConnectionDB.delete(SelectedBoleta);
+            DBconnection.delete(SelectedBoleta);
             Boletas.Remove(SelectedBoleta);
             SelectedBoleta = Boletas.FirstOrDefault();
         }
@@ -79,10 +82,9 @@ namespace Boletas.ViewModel
                 SelectedBoleta.quantidade = boletaClone.quantidade;
                 SelectedBoleta.contaAssociada = boletaClone.contaAssociada;
                 SelectedBoleta.corretora = boletaClone.corretora;
-                ConnectionDB.update(boletaClone);
+                DBconnection.update(boletaClone);
             }
         }
-
     }
 }
 
