@@ -14,6 +14,7 @@ namespace Boletas.Model
         private static MySqlConnection connection = new MySqlConnection(connString);
         private static MySqlCommand command = connection.CreateCommand();
 
+        public ConnectionMySQL() { }
         void DBInterface.createDB()
         {
             try

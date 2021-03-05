@@ -158,6 +158,8 @@
     <Compile Include="Model\ConnectionDB.cs" />
     <Compile Include="Model\ConnectionMySQL.cs" />
     <Compile Include="Model\DBInterface.cs" />
+    <Compile Include="Model\GetConnection.cs" />
+    <Compile Include="Model\IDBConnection.cs" />
     <Compile Include="SUDO.xaml.cs">
       <DependentUpon>SUDO.xaml</DependentUpon>
     </Compile>

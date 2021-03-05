@@ -35,7 +35,7 @@ namespace Boletas
 
         private void Logar(object sender, RoutedEventArgs e)
         {
-            DBInterface connection = new ConnectionDB();
+            DBInterface connection = new GetConnection().GetDBConnection();
            if (connection.validateUser(TBusuario.Text, TBsenha.Text))
             {
                 var perfil = connection.findUserProfile(TBusuario.Text);

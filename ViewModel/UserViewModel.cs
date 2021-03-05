@@ -12,18 +12,19 @@ namespace Boletas.ViewModel
         public ObservableCollection<Model.User> Users { get; private set; }
 
         public User usuario { get; set; }
-        public DBInterface DBconnection { get; set; }
 
+        private GetConnection _getConnection = new GetConnection();
+        private DBInterface _con { get; set; }
         public RelayCommand CommandCadastrar { get; set; }
 
 
 
         public UserViewModel()
         {
-            DBconnection = new ConnectionDB();
-            DBconnection.createDB();
+            _con = _getConnection.GetDBConnection();
+            _con.createDB();
             usuario = new User();
-            Users = new ObservableCollection<Model.User>(DBconnection.getListUser());
+            Users = new ObservableCollection<Model.User>(_con.getListUser());
             CommandCadastrar = new RelayCommand(Cadastrar);
         }
 
@@ -39,7 +40,7 @@ namespace Boletas.ViewModel
             if (uw.DialogResult.HasValue && uw.DialogResult.Value)
             {
                 Users.Add(user);
-                DBconnection.add(user);
+                _con.add(user);
             }
         }
     }

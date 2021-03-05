@@ -16,6 +16,7 @@ namespace Boletas.Model
 
         private static SQLiteConnection connectionDB = new SQLiteConnection(DBpath);
 
+        public ConnectionDB() { }
         void DBInterface.createDB()
         {
             connectionDB.CreateTable<PreBoleta>();

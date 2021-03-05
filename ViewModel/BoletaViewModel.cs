@@ -14,7 +14,8 @@ namespace Boletas.ViewModel
         public ObservableCollection<Model.PreBoleta> PreBoletasAprovadas { get; private set; }
         public RelayCommand CommandAdicionar { get; set; }
 
-        public DBInterface DBconnection { get; set; }
+        private GetConnection _getConnection = new GetConnection();
+        private DBInterface _con { get; set; }
         public RelayCommand CommandDeletar { get; set; }
         public RelayCommand CommandEditar { get; set; }
 
@@ -33,10 +34,10 @@ namespace Boletas.ViewModel
         }
         public BoletaViewModel()
         {
-            DBconnection = new ConnectionDB();
-            DBconnection.createDB();
-            Boletas = new ObservableCollection<Model.Boleta>(DBconnection.getListBol());
-            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(DBconnection.getStatusPB(Status.APROVADA));
+            _con = _getConnection.GetDBConnection();
+            _con.createDB();
+            Boletas = new ObservableCollection<Model.Boleta>(_con.getListBol());
+            PreBoletasAprovadas = new ObservableCollection<Model.PreBoleta>(_con.getStatusPB(Status.APROVADA));
             CommandAdicionar = new RelayCommand(AdicionarB);
             CommandDeletar = new RelayCommand(DeletarB);
             CommandEditar = new RelayCommand(EditarB);
@@ -44,8 +45,6 @@ namespace Boletas.ViewModel
         private void AdicionarB()
         {
             var boleta = new Model.Boleta();
-
-
             var bw = new BoletaTW();
             bw.DataContext = boleta;
             bw.ShowDialog();
@@ -53,14 +52,14 @@ namespace Boletas.ViewModel
             if (bw.DialogResult.HasValue && bw.DialogResult.Value)
             {
                 Boletas.Add(boleta);
-                DBconnection.add(boleta);
+                _con.add(boleta);
                 SelectedBoleta = boleta;
             }
         }
 
         private void DeletarB()
         {
-            DBconnection.delete(SelectedBoleta);
+            _con.delete(SelectedBoleta);
             Boletas.Remove(SelectedBoleta);
             SelectedBoleta = Boletas.FirstOrDefault();
         }
@@ -82,7 +81,7 @@ namespace Boletas.ViewModel
                 SelectedBoleta.quantidade = boletaClone.quantidade;
                 SelectedBoleta.contaAssociada = boletaClone.contaAssociada;
                 SelectedBoleta.corretora = boletaClone.corretora;
-                DBconnection.update(boletaClone);
+                _con.update(boletaClone);
             }
         }
     }

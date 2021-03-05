@@ -9,6 +9,8 @@ namespace Boletas.Model
 {
     public class Boleta : BaseNotifyPropertyChanged, ICloneable
     {
+        public Boleta() { }
+
         private int _id;
         [PrimaryKey, AutoIncrement]
         public int id
